@@ -1,0 +1,17 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="">
+<head>
+    <title>Using AngularJS Directives and Data Binding</title>
+</head>
+<body ng-init="vm.customers=[{name:'John Smith', city:'Phoenix'}
+      , {name:'John Doe', city:'New York'}, {name:'Jane Doe', city:'San Francisco'}]">
+    Name:
+    <br/>
+    <input type="text" ng-model="vm.name"/> {{vm.name}}
+    <br/>
+    <ul>
+        <li ng-repeat="customer in vm.customers">{{customer.name}} - {{customer.city}}</li>
+    </ul>
+    <script src="../../Scripts/angular/angular.js"></script>
+</body>
+</html>

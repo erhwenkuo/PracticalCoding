@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="myapp">
+<head>
+    <title>AngularJS Module, Route and Factory</title>
+</head>
+<body>
+    <div>
+        <div ng-view></div>
+    </div>
+    <script src="../../Scripts/angular/angular.js"></script>
+    <script src="../../Scripts/angular/angular-route.js"></script>
+    <script>
+        // create module
+        var myapp = angular.module('myapp', ['ngRoute']);
+
+        // define a factory to get Customer information
+        myapp.factory('SimpleFactory', function () {
+            var lastIdSeq = 3;
+            var customers = [{id:1, name: 'John Smith', city: 'Phoenix' },
+                { id:2, name: 'John Doe', city: 'New York' }, { id:3, name: 'Jane Doe', city: 'San Francisco' }
+            ];
+
+            var factory = {};
+
+            // Query
+            factory.getCustomers = function () {
+                return customers;
+            };
+            // Create
+            factory.addCustomer = function (customer) {
+                lastIdSeq++;
+                customer.id = lastIdSeq;
+                customers.push(customer);
+            };
+            // Update
+            factory.modifyCustomer = function (id, customer) {
+                for (var idx = 0; idx < customers.length; idx++) {
+                    var cust = customers[idx];
+                    if (cust.id == id) {
+                        customers[idx] = customer;
+                        break;
+                    }
+                }
+            }
+            // Delete
+            factory.removeCustomer = function (id) {
+                for (var idx = 0; idx < customers.length; idx++) {
+                    var cust = customers[idx];
+                    if (cust.id == id) {
+                        customers.splice(idx, 1);
+                        break;
+                    }
+                }
+            }
+            return factory;
+        });
+
+        // define a controller
+        myapp.controller('SimpleController', function ($scope, SimpleFactory) {
+            $scope.vm = {};
+            $scope.vm.customers = [];
+
+            init();
+
+            function init() {
+                $scope.vm.customers = SimpleFactory.getCustomers();
+            };
+
+            $scope.vm.tmpCustomer = {id:null, name: null, city: null };
+
+            $scope.addCustomer = function () {
+                SimpleFactory.addCustomer({ name: $scope.vm.tmpCustomer.name, city: $scope.vm.tmpCustomer.city });
+                init();
+            };
+
+            $scope.modifyCustomer = function () {
+                SimpleFactory.modifyCustomer($scope.vm.tmpCustomer.id, angular.copy($scope.vm.tmpCustomer));
+                init();
+            };
+
+            $scope.removeCustomer = function () {
+                SimpleFactory.removeCustomer($scope.vm.tmpCustomer.id);
+                init();
+            };
+        });
+        // config routing
+        myapp.config(function ($routeProvider) {
+            $routeProvider
+                .when('/createview', {
+                    templateUrl: 'Partials_step_10/CreateView.html',
+                    controller: 'SimpleController'
+                })
+                .when('/updateview', {
+                    templateUrl: 'Partials_step_10/UpdateView.html',
+                    controller: 'SimpleController'
+                })
+                .when('/deleteview', {
+                    templateUrl: 'Partials_step_10/DeleteView.html',
+                    controller: 'SimpleController'
+                })
+                .otherwise({ redirectTo: '/createview' });
+        });
+    </script>
+</body>
+</html>
+
+
+

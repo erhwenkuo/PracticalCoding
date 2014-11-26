@@ -1,0 +1,16 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="">
+<head>
+    <title>Using AngularJS Directives and Data Binding</title>
+</head>
+<body ng-init="vm.names=['John Smith', 'John Doe', 'Jane Doe']">
+    Name:
+    <br/>
+    <input type="text" ng-model="vm.name"/> {{vm.name}}
+    <br/>
+    <ul>
+        <li ng-repeat="personName in vm.names">{{personName}}</li>
+    </ul>
+    <script src="../../Scripts/angular/angular.js"></script>
+</body>
+</html>

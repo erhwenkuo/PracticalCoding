@@ -1,0 +1,32 @@
+﻿<div>
+    <h2>Delete View</h2>
+    Name(filter):
+    <br />
+    <input type="text" ng-model="vm.nameToFilter" /> {{vm.nameToFilter}}
+    <br /><br />
+    <table border="1">
+        <thead>
+            <tr>
+                <td>Id</td>
+                <td>Name</td>
+                <td>City</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="customer in vm.customers | filter:vm.nameToFilter | orderBy:'city'">
+                <td>{{customer.id}}</td>
+                <td>{{customer.name | uppercase}}</td>
+                <td>{{customer.city | lowercase}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <br />
+    Customer Id:
+    <br />
+    <input type="number" ng-model="vm.tmpCustomer.id" />  
+    <br /><br />
+    <button ng-click="removeCustomer()">Remove Customer</button>
+    <br /><br />
+    <a href="#/createview">Create</a>
+    <a href="#/updateview">Delete</a>
+</div>

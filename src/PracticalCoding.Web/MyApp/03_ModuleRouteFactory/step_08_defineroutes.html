@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="myapp">
+<head>
+    <title>AngularJS Module, Route and Factory</title>
+</head>
+<body>
+    <div>
+        <div ng-view></div>
+    </div>
+    <script src="../../Scripts/angular/angular.js"></script>
+    <script src="../../Scripts/angular/angular-route.js"></script>
+    <script>
+        // create module
+        var myapp = angular.module('myapp', ['ngRoute']);
+        // define a controller
+        myapp.controller('SimpleController', function ($scope) {
+            $scope.vm = {};
+            $scope.vm.customers = [{ name: 'John Smith', city: 'Phoenix' },
+                { name: 'John Doe', city: 'New York' },{ name: 'Jane Doe', city: 'San Francisco' }
+            ];
+        });
+        // config routing
+        myapp.config(function ($routeProvider) {
+            $routeProvider
+                .when('/view1', {
+                    templateUrl: 'Partials_step_08/View1.html',
+                    controller: 'SimpleController'
+                })
+                .when('/view2', {
+                    templateUrl: 'Partials_step_08/View2.html',
+                    controller: 'SimpleController'
+                })
+                .otherwise({ redirectTo: '/view1' });
+        });
+    </script>
+</body>
+</html>
+
+
+

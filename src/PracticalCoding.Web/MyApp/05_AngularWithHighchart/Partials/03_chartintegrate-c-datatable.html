@@ -1,0 +1,38 @@
+﻿<div>
+    <h2>ChartData</h2>
+        Any:
+    <br />
+    <input type="text" ng-model="vm.search.$" /> {{vm.search.$}}
+    <br />
+        Period only:
+    <br />
+    <input type="text" ng-model="vm.search.Period" /> {{vm.search.Period}}
+    <br /><br />
+
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover table-condensed">
+            <thead>
+                <tr>
+                    <td>Period</td>
+                    <td>Period_UTC</td>
+                    <td>TAIEX</td>
+                    <td>MonitoringIndex</td>
+                    <td>LeadingIndex</td>
+                    <td>CoincidentIndex</td>
+                    <td>LaggingIndex</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="chartdata in vm.chartdatas | filter:vm.search:strict">
+                    <td>{{chartdata.Period}}</td>
+                    <td>{{chartdata.Period_UTC}}</td>
+                    <td>{{chartdata.TAIEX}}</td>
+                    <td>{{chartdata.MonitoringIndex}}</td>
+                    <td>{{chartdata.LeadingIndex}}</td>
+                    <td>{{chartdata.CoincidentIndex}}</td>
+                    <td>{{chartdata.LaggingIndex}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace PracticalCoding.Web.Controllers
@@ -49,15 +50,21 @@ namespace PracticalCoding.Web.Controllers
         public HttpResponseMessage Post([FromBody]Chartdata value)
         {
             var newEntityId = _repo.CreateChartdata(value);
-            var response = Request.CreateResponse<int>(HttpStatusCode.Created, newEntityId);
+            var response = Request.CreateResponse<int>
+                (HttpStatusCode.Created, newEntityId);
             string uri = Url.Link("DefaultApi", new { id = newEntityId });
             response.Headers.Location = new Uri(uri);
+
             // *** Broadcast to all Signalr client ***
             value.Id = newEntityId;
             var signalrEvent = new SignalREvent{
-                EventName="chartdata_created" , EventBody=new {Data=value}, 
-                EventDate=DateTime.Now, EventSource="[POST]@/api/dashboard"};
-            Hub.Clients.All.broadcastSignalrEvent(signalrEvent);
+                EventName="chartdata_created" , 
+                EventBody=new {Data=value}, 
+                EventDate=DateTime.Now, 
+                EventSource="[POST]@/api/dashboard"};
+            Task.Factory.StartNew(() => 
+                { Hub.Clients.All.broadcastSignalrEvent(signalrEvent); });
+
             return response;
         }
 
@@ -70,11 +77,15 @@ namespace PracticalCoding.Web.Controllers
             else
             {
                 _repo.UpdateChartdata(value);
+
                 // *** Broadcast to all Signalr client ***
                 var signalrEvent = new SignalREvent { 
-                    EventName = "chartdata_updated", EventBody = new { Data = value }, 
-                    EventDate = DateTime.Now, EventSource = "[PUT]@/api/dashboard/{id}" };
-                Hub.Clients.All.broadcastSignalrEvent(signalrEvent);
+                    EventName = "chartdata_updated", 
+                    EventBody = new { Data = value }, 
+                    EventDate = DateTime.Now, 
+                    EventSource = "[PUT]@/api/dashboard/{id}" };
+                Task.Factory.StartNew(() => 
+                    { Hub.Clients.All.broadcastSignalrEvent(signalrEvent); });
             }
         }
 
@@ -87,11 +98,13 @@ namespace PracticalCoding.Web.Controllers
             else
             {
                 _repo.DeleteChartdataById(id);
+
                 // *** Broadcast to all Signalr client ***
                 var signalrEvent = new SignalREvent { EventName = "chartdata_deleted", 
                     EventBody = new { Data = id }, EventDate = DateTime.Now, 
                     EventSource = "[DELETE]@/api/dashboard/{id}" };
-                Hub.Clients.All.broadcastSignalrEvent(signalrEvent);
+                Task.Factory.StartNew(() => 
+                { Hub.Clients.All.broadcastSignalrEvent(signalrEvent); });                
             }
         }
     }

@@ -8,27 +8,19 @@ angular.module('myapp')
     var factory = {};
     var initialized = false;
 
-    // Get all training datas 
-    factory.getTrainingDatas = function (scope) {
-        if (initialized) {
-            if (scope) {
-                scope.vm.chartdata.loading = false;
-            }
-            return trainingdatas;
-        } else {
-            // Get data from remote backend
-            $http.get('/api/dashboard')
-                .success(function (data, status, headers, config) {
-                    trainingdatas = data;
-                    initialized = true;
-                    
-                    if (scope) {
-                        scope.vm.chartdatas = trainingdatas;
-                        scope.vm.chartdata.loading = false;
-                    }
-                    return trainingdatas;
-                });            
-        }
+    // Get all training datas via WebApi
+    factory.getTrainingDatas = function (callbackFn) {
+        // Get data from remote backend WebApi
+        $http.get('/api/dashboard')
+            .success(function (data, status, headers, config) {
+                trainingdatas = data;
+                initialized = true;
+
+                if (callbackFn) {
+                    //呼叫callbackFn並把最新取得的資料當引數傳入
+                    callbackFn(trainingdatas);
+                }
+            });
     };
 
     // Get the last period of data
@@ -57,7 +49,7 @@ angular.module('myapp')
                     result.push(trainingdatas[idx].Period_UTC);
                     break;
                 case "taiex":
-                    result.push({ x: trainingdatas[idx].Period_UTC, y: trainingdatas[idx].TAIEX });
+                    result.push({ x: trainingdatas[idx].Period_UTC, y: trainingdatas[idx].Taiex });
                     break;
                 case "monitoringindex":
                     result.push({ x: trainingdatas[idx].Period_UTC, y: trainingdatas[idx].MonitoringIndex });
@@ -74,7 +66,7 @@ angular.module('myapp')
             }
         }
         return result;
-    };    
+    };
 
     // Get initialization flag
     factory.isInitialized = function () {
@@ -87,7 +79,7 @@ angular.module('myapp')
     }
 
     //新增(Create): Create new chartdata
-    factory.createTrainingChartData = function (scope, chartdata) {
+    factory.createTrainingChartData = function (chartdata, successFn, errorFn) {
         // Post data to remote backend WebApi
         var request = $http({
             method: "post",
@@ -96,40 +88,38 @@ angular.module('myapp')
         });
 
         request.success(function (data, status, headers, config) {
-            scope.vm.alerts.push({ type: 'success', msg: 'New chartdata [' + data + '] created successfully!' });
-            initialized = false; //reset flag
-            scope.vm.action.mode = 'NoOp'; 
-            scope.getAllChartdatas(); //trigger to refresh data
+            if (successFn)
+                successFn(data, status, headers, config);
         });
 
         request.error(function (data, status, headers, config) {
-            scope.vm.alerts.push({ type: 'danger', msg: 'New chartdata created error!' })
+            if (errorFn)
+                errorFn(data, status, headers, config);
         });
     }
 
-    //修改(Update): update exsiting chartdata
-    factory.updateTrainingChartData = function (scope, chartdata) {
-        // Put data to remote backend WebApi
+    //修改(Update): update exsiting chartdata    
+    factory.updateTrainingChartData = function (chartdata, successFn, errorFn) {
+        // Post data to remote backend WebApi
         var request = $http({
             method: "put",
-            url: "/api/dashboard/"+chartdata.Id,
+            url: "/api/dashboard/" + chartdata.Id,
             data: chartdata
         });
 
         request.success(function (data, status, headers, config) {
-            scope.vm.alerts.push({ type: 'success', msg: 'Update chartdata [' + chartdata.Id + '] successfully!' });
-            initialized = false; //reset flag
-            scope.vm.action.mode = 'NoOp';
-            scope.getAllChartdatas(); //trigger to refresh data
+            if (successFn)
+                successFn(data, status, headers, config);
         });
 
         request.error(function (data, status, headers, config) {
-            scope.vm.alerts.push({ type: 'danger', msg: 'Update chartdata [' + chartdata.Id + '] error!' })
+            if (errorFn)
+                errorFn(data, status, headers, config);
         });
     }
 
     //刪除(Delete): delete existing chartdata
-    factory.deleteTrainingChartData = function (scope, chartdata) {
+    factory.deleteTrainingChartData = function (chartdata, successFn, errorFn) {
         // Delete data via remote backend WebApi
         var request = $http({
             method: "delete",
@@ -137,14 +127,13 @@ angular.module('myapp')
         });
 
         request.success(function (data, status, headers, config) {
-            scope.vm.alerts.push({ type: 'success', msg: 'Delete chartdata [' + chartdata.Id + '] successfully!' });
-            initialized = false; //reset flag
-            scope.vm.action.mode = 'NoOp';
-            scope.getAllChartdatas(); //trigger to refresh data
+            if (successFn)
+                successFn(data, status, headers, config);
         });
 
         request.error(function (data, status, headers, config) {
-            scope.vm.alerts.push({ type: 'danger', msg: 'Delete chartdata [' + chartdata.Id + '] error!' })
+            if (errorFn)
+                errorFn(data, status, headers, config);
         });
     }
 

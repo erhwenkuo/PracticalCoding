@@ -8,9 +8,9 @@ angular.module('myapp')
     var factory = {};
     var initialized = false;
 
-    // Refresh all training datas
-    factory.resetTrainingDatas = function (callbackFn) {
-        // Get data from remote backend
+    // Get all training datas via WebApi
+    factory.getTrainingDatas = function (callbackFn) {
+        // Get data from remote backend WebApi
         $http.get('/api/signalrdashboard')
             .success(function (data, status, headers, config) {
                 trainingdatas = data;
@@ -97,7 +97,6 @@ angular.module('myapp')
                 errorFn(data, status, headers, config);
         });
     }
-
 
     //修改(Update): update exsiting chartdata    
     factory.updateTrainingChartData = function (chartdata, successFn, errorFn) {

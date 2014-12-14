@@ -701,6 +701,7 @@ myapp.controller('02_myapp_ChartInteractionCtrl', function ($scope) {
 /**************** [3. Integration Chart] *******************/
 
 //定義給整合AngularJS與Highchart的controller
+// define a controller for 03_IntegrateDataTable
 myapp.controller('03_myapp_integrateDataTableCtrl', function ($scope, ChartDataFactory) {
     $scope.vm = {};
     $scope.vm.chartdatas = [];
@@ -708,45 +709,104 @@ myapp.controller('03_myapp_integrateDataTableCtrl', function ($scope, ChartDataF
     $scope.vm.chartdata.loading = true; //<--用來控制幕面的loading icons
     $scope.vm.alerts = []; //<--用來顯示CURD的結果訊息
 
+    refreshData = function () {
+        $scope.vm.chartdata.loading = true;
+        //叫用ChartDataFactory的getTrainingDatas的method來取得最新的資料
+        //method的引數(args)是一個回call function
+        ChartDataFactory.getTrainingDatas(function (trainingdatas) {
+            $scope.vm.chartdatas = trainingdatas;
+            $scope.vm.chartdata.loading = false;
+        });
+    };
     //初始化
-    $scope.vm.chartdatas = ChartDataFactory.getTrainingDatas($scope);
-
+    refreshData();
     //查詢(Query) - delegate to ChartDataFactory
     $scope.getAllChartdatas = function () {
-        $scope.vm.chartdata.loading = true;
-        ChartDataFactory.getTrainingDatas($scope);
+        refreshData();
     };
-
     //新增(Create) - delegate to ChartDataFactory
     $scope.createChartdata = function () {
-        ChartDataFactory.createTrainingChartData($scope, $scope.vm.chartdata);
+        ChartDataFactory.createTrainingChartData(
+            //第一個參數
+            $scope.vm.chartdata,
+            //第二個參數:Operation執行成功所呼叫的callbackFn
+            function (data, status, headers, config) {
+                $scope.vm.alerts.push({ type: 'success', msg: 'New chartdata [' + data + '] created successfully!' });
+                $scope.vm.action.mode = 'NoOp';
+                refreshData();
+            },
+            //第三個參數:Operation執行失敗所呼叫的callbackFn
+            function (data, status, headers, config) {
+                $scope.vm.alerts.push({ type: 'danger', msg: 'New chartdata created error!' })
+            }
+        );
     };
 
     //修改(Update) - delegate to ChartDataFactory
     $scope.updateChartdata = function () {
-        ChartDataFactory.updateTrainingChartData($scope, $scope.vm.chartdata);
+        ChartDataFactory.updateTrainingChartData(
+           //第一個參數
+           $scope.vm.chartdata,
+           //第二個參數:Operation執行成功所呼叫的callbackFn
+           function (data, status, headers, config) {
+               $scope.vm.alerts.push({ type: 'success', msg: 'Update chartdata [' + $scope.vm.chartdata.Id + '] successfully!' });
+               $scope.vm.action.mode = 'NoOp';
+               refreshData();
+           },
+           //第三個參數:Operation執行失敗所呼叫的callbackFn
+           function (data, status, headers, config) {
+               $scope.vm.alerts.push({ type: 'danger', msg: 'Update chartdata [' + $scope.vm.chartdata.Id + '] error!' })
+           }
+       );
     };
 
     //刪除(Delete) - delegate to ChartDataFactory
     $scope.deleteChartdata = function () {
-        ChartDataFactory.deleteTrainingChartData($scope, $scope.vm.chartdata);
+        //ChartDataFactory.deleteTrainingChartData($scope, $scope.vm.chartdata);
+        ChartDataFactory.deleteTrainingChartData(
+           //第一個參數
+           $scope.vm.chartdata,
+           //第二個參數:Operation執行成功所呼叫的callbackFn
+           function (data, status, headers, config) {
+               $scope.vm.alerts.push({ type: 'success', msg: 'Delete chartdata [' + $scope.vm.chartdata.Id + '] successfully!' });
+               $scope.vm.action.mode = 'NoOp';
+               refreshData();
+           },
+           //第三個參數:Operation執行失敗所呼叫的callbackFn
+           function (data, status, headers, config) {
+               $scope.vm.alerts.push({ type: 'danger', msg: 'Delete chartdata [' + $scope.vm.chartdata.Id + '] error!' })
+           }
+       );
     };
 
     //function to close specific alert message on the screen
     $scope.closeAlert = function (index) {
         $scope.vm.alerts.splice(index, 1);
-    };
+    };    
 });
 
-// define a controller for 02_BasicLineView
+// define a controller for 03_IntegrateLine
 myapp.controller('03_myapp_integrateLineCtrl', function ($scope, ChartDataFactory) {
+    //初始化圖表的function
+    init = function () {
+        ChartDataFactory.getTrainingDatas(function () {
+            //***Highchart圖表要秀的資料***//
+            var chart = $scope.chartConfig.getHighcharts();
+
+            chart.addSeries({
+                name: '景氣對策信號',
+                data: ChartDataFactory.getDataSeriesByProp("monitoringindex"),
+            }, false);
+
+            chart.redraw();
+        })
+    };
+
+    //圖表初始化
+    init();
 
     //***Highchart圖表要秀的資料***//
-    $scope.chartSeries = [
-        {
-            name: '景氣對策信號',
-            data: ChartDataFactory.getDataSeriesByProp("monitoringindex"),
-        }];
+    $scope.chartSeries = [];
 
     //***Highchart的圖表configuration***//
     $scope.chartConfig = {
@@ -786,61 +846,73 @@ myapp.controller('03_myapp_integrateLineCtrl', function ($scope, ChartDataFactor
                 borderWidth: 0
             }
         },
-        
+
         series: $scope.chartSeries
     };
 });
 
-// define a controller for 03_DualAxesLineView
+// define a controller for 03_IntegrateDualAxes
 myapp.controller('03_myapp_integrateDualAxesCtrl', function ($scope, ChartDataFactory) {
-    if (!ChartDataFactory.isInitialized()) {
-        ChartDataFactory.getTrainingDatas();
-    }
+    //初始化圖表的function
+    init = function () {
+        ChartDataFactory.getTrainingDatas(function () {
+            //***Highchart圖表要秀的資料***//
+            var chart = $scope.chartConfig.getHighcharts();
+
+            chart.addSeries({
+                name: '景氣對策信號',
+                data: ChartDataFactory.getDataSeriesByProp("monitoringindex"),
+                type: 'spline',
+                marker: {
+                    enabled: false
+                }
+            }, false);
+
+            chart.addSeries({
+                name: '景氣領先指標',
+                data: ChartDataFactory.getDataSeriesByProp("leadingindex"),
+                type: 'spline',
+                yAxis: 1,
+                type: 'spline',
+                marker: {
+                    enabled: false
+                },
+                dashStyle: 'shortdot'
+            }, false);
+
+            chart.addSeries({
+                name: '景氣同時指標',
+                data: ChartDataFactory.getDataSeriesByProp("coincidentindex"),
+                type: 'spline',
+                yAxis: 1,
+                type: 'spline',
+                marker: {
+                    enabled: false
+                },
+                dashStyle: 'shortdot'
+            }, false);
+
+            chart.addSeries({
+                name: '景氣落後指標',
+                data: ChartDataFactory.getDataSeriesByProp("laggingindex"),
+                type: 'spline',
+                yAxis: 1,
+                type: 'spline',
+                marker: {
+                    enabled: false
+                },
+                dashStyle: 'shortdot'
+            }, false);
+
+            chart.redraw();
+        })
+    };
+
+    //圖表初始化
+    init();
 
     //***Highchart圖表要秀的資料***//
-    $scope.chartSeries = [
-        {
-            name: '景氣對策信號',
-            data: ChartDataFactory.getDataSeriesByProp("monitoringindex"),
-            type: 'spline',
-            marker: {
-                enabled: false
-            }
-        },
-        {
-            name: '景氣領先指標',
-            data: ChartDataFactory.getDataSeriesByProp("leadingindex"),
-            type: 'spline',
-            yAxis: 1,
-            type: 'spline',
-            marker: {
-                enabled: false
-            },
-            dashStyle: 'shortdot'
-        },
-        {
-            name: '景氣同時指標',
-            data: ChartDataFactory.getDataSeriesByProp("coincidentindex"),
-            type: 'spline',
-            yAxis: 1,
-            type: 'spline',
-            marker: {
-                enabled: false
-            },
-            dashStyle: 'shortdot'
-        },
-        {
-            name: '景氣落後指標',
-            data: ChartDataFactory.getDataSeriesByProp("laggingindex"),
-            type: 'spline',
-            yAxis: 1,
-            type: 'spline',
-            marker: {
-                enabled: false
-            },
-            dashStyle: 'shortdot'
-        }
-    ];
+    $scope.chartSeries = [];
 
     //***Highchart的圖表configuration***//
     $scope.chartConfig = {
@@ -896,69 +968,78 @@ myapp.controller('03_myapp_integrateDualAxesCtrl', function ($scope, ChartDataFa
     };
 });
 
-// define a controller for 04_MultipleAxesView
+// define a controller for 03_IntegrateMultiAxes
 myapp.controller('03_myapp_integrateMultiAxesCtrl', function ($scope, ChartDataFactory) {
+    //初始化圖表的function
+    init = function () {
+        ChartDataFactory.getTrainingDatas(function () {
+            //***Highchart圖表要秀的資料***//
+            var chart = $scope.chartConfig.getHighcharts();
 
-    if (!ChartDataFactory.isInitialized()) {
-        ChartDataFactory.getTrainingDatas();
-    }
+            chart.addSeries({
+                name: '景氣對策信號',
+                data: ChartDataFactory.getDataSeriesByProp("monitoringindex"),
+                type: 'spline',
+                marker: {
+                    enabled: false
+                }
+            }, false);
 
+            chart.addSeries({
+                name: '景氣領先指標',
+                data: ChartDataFactory.getDataSeriesByProp("leadingindex"),
+                type: 'spline',
+                yAxis: 1,
+                type: 'spline',
+                marker: {
+                    enabled: false
+                },
+                dashStyle: 'shortdot'
+            }, false);
+
+            chart.addSeries({
+                name: '景氣同時指標',
+                data: ChartDataFactory.getDataSeriesByProp("coincidentindex"),
+                type: 'spline',
+                yAxis: 1,
+                type: 'spline',
+                marker: {
+                    enabled: false
+                },
+                dashStyle: 'shortdot'
+            }, false);
+
+            chart.addSeries({
+                name: '景氣落後指標',
+                data: ChartDataFactory.getDataSeriesByProp("laggingindex"),
+                type: 'spline',
+                yAxis: 1,
+                type: 'spline',
+                marker: {
+                    enabled: false
+                },
+                dashStyle: 'shortdot'
+            }, false);
+
+            chart.addSeries({
+                name: '台股加權股價指數',
+                data: ChartDataFactory.getDataSeriesByProp("taiex"),
+                type: 'spline',
+                yAxis: 2,
+                type: 'spline',
+                marker: {
+                    enabled: false
+                },
+                color: Highcharts.getOptions().colors[5]
+            }, false);
+
+            chart.redraw();
+        })
+    };
+    //圖表初始化
+    init();
     //***Highchart圖表要秀的資料***//
-    $scope.chartSeries = [
-        {
-            name: '景氣對策信號',
-            data: ChartDataFactory.getDataSeriesByProp("monitoringindex"),
-            type: 'spline',
-            marker: {
-                enabled: false
-            }
-        },
-        {
-            name: '景氣領先指標',
-            data: ChartDataFactory.getDataSeriesByProp("leadingindex"),
-            type: 'spline',
-            yAxis: 1,
-            type: 'spline',
-            marker: {
-                enabled: false
-            },
-            dashStyle: 'shortdot'
-        },
-        {
-            name: '景氣同時指標',
-            data: ChartDataFactory.getDataSeriesByProp("coincidentindex"),
-            type: 'spline',
-            yAxis: 1,
-            type: 'spline',
-            marker: {
-                enabled: false
-            },
-            dashStyle: 'shortdot'
-        },
-        {
-            name: '景氣落後指標',
-            data: ChartDataFactory.getDataSeriesByProp("laggingindex"),
-            type: 'spline',
-            yAxis: 1,
-            type: 'spline',
-            marker: {
-                enabled: false
-            },
-            dashStyle: 'shortdot'
-        },
-        {
-            name: '台股加權股價指數',
-            data: ChartDataFactory.getDataSeriesByProp("taiex"),
-            type: 'spline',
-            yAxis: 2,
-            type: 'spline',
-            marker: {
-                enabled: false
-            },
-            color: Highcharts.getOptions().colors[5]
-        }
-    ];
-
+    $scope.chartSeries = [];
     //***Highchart的圖表configuration***//
     $scope.chartConfig = {
         title: {
@@ -1020,18 +1101,17 @@ myapp.controller('03_myapp_integrateMultiAxesCtrl', function ($scope, ChartDataF
                 borderWidth: 0
             }
         },
-
         series: $scope.chartSeries
-    };
+    };    
 });
 
-// define a controller for 04_MultipleAxesView
+// define a controller for 03_IntegrateGauage
 myapp.controller('03_myapp_integrateGauageCtrl', function ($scope, ChartDataFactory) {
     $scope.vm = {};
-
-    if (!ChartDataFactory.isInitialized()) {
-        ChartDataFactory.getTrainingDatas();
-    }        
+    $scope.vm.score = null;
+    $scope.vm.light = null;
+    $scope.vm.meaning = null;
+    $scope.vm.period = null;
 
     // 景氣燈號的分數與意義
     var gauageDataMeaning = [
@@ -1042,10 +1122,8 @@ myapp.controller('03_myapp_integrateGauageCtrl', function ($scope, ChartDataFact
         { from: 38, to: 45, light: '紅燈', meaning: '景氣過熱, 政府可能採取緊縮措施' }
     ];
 
-    var gauageData = ChartDataFactory.getLatesPeriodData();
-
-    getLight = function(score){
-        for(var i=0; i<gauageDataMeaning.length; i++){
+    getLight = function (score) {
+        for (var i = 0; i < gauageDataMeaning.length; i++) {
             var meanObj = gauageDataMeaning[i];
             if (score >= meanObj.from && score < meanObj.to)
                 return meanObj.light;
@@ -1060,22 +1138,27 @@ myapp.controller('03_myapp_integrateGauageCtrl', function ($scope, ChartDataFact
         }
     };
 
-    var myScore = gauageData.MonitoringIndex;
-    $scope.vm.score = myScore;
-    $scope.vm.light = getLight(myScore);
-    $scope.vm.meaning = getMeaning(myScore);
-    $scope.vm.period = gauageData.Period;
+    init = function () {
+        ChartDataFactory.getTrainingDatas(function () {
+            var gauageData = ChartDataFactory.getLatesPeriodData();
+            var myScore = gauageData.MonitoringIndex;
+            $scope.vm.score = myScore;
+            $scope.vm.light = getLight(myScore);
+            $scope.vm.meaning = getMeaning(myScore);
+            $scope.vm.period = gauageData.Period;
+            //***Highchart圖表要秀的資料***//
+            var chart = $scope.chartConfig.getHighcharts();
+            chart.addSeries({
+                name: "台灣景氣對策信號",
+                data: [gauageData.MonitoringIndex],
+                tooltip: {
+                    valueSuffix: ' 分'
+                }
+            });
+        })
+    };
 
-    //***Highchart圖表要秀的資料***//
-    $scope.chartSeries = [
-        {
-            name: "台灣景氣對策信號",
-            data: [gauageData.MonitoringIndex],
-            tooltip: {
-                valueSuffix: ' 分'
-            }
-        }        
-    ];
+    init();
 
     //***Highchart的圖表configuration***//
     $scope.chartConfig = {

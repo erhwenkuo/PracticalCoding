@@ -712,9 +712,9 @@ myapp.controller('03_myapp_integrateDataTableCtrl', function ($scope, ChartDataF
 
     refreshData = function () {
         $scope.vm.chartdata.loading = true;
-        //叫用ChartDataFactory的resetTrainingDatas的method來取得最新的資料
+        //叫用ChartDataFactory的getTrainingDatas的method來取得最新的資料
         //method的引數(args)是一個回call function
-        ChartDataFactory.resetTrainingDatas(function (trainingdatas) {
+        ChartDataFactory.getTrainingDatas(function (trainingdatas) {
             $scope.vm.chartdatas = trainingdatas;
             $scope.vm.chartdata.loading = false;
         });
@@ -806,7 +806,7 @@ myapp.controller('03_myapp_integrateDataTableCtrl', function ($scope, ChartDataF
 myapp.controller('03_myapp_integrateLineCtrl', function ($scope, ChartDataFactory, EventBusHub) {
     //初始化圖表的function
     init = function () {
-        ChartDataFactory.resetTrainingDatas(function () {
+        ChartDataFactory.getTrainingDatas(function () {
             //***Highchart圖表要秀的資料***//
             var chart = $scope.chartConfig.getHighcharts();
 
@@ -882,7 +882,7 @@ myapp.controller('03_myapp_integrateLineCtrl', function ($scope, ChartDataFactor
 
     //重新refresh圖表
     refreshChart = function () {
-        ChartDataFactory.resetTrainingDatas(function () {
+        ChartDataFactory.getTrainingDatas(function () {
             //***Highchart圖表要秀的資料***//
             //取得Highchart的chart物件instance
             var chart = $scope.chartConfig.getHighcharts();
@@ -900,7 +900,7 @@ myapp.controller('03_myapp_integrateDualAxesCtrl', function ($scope, ChartDataFa
 
     //初始化圖表的function
     init = function () {
-        ChartDataFactory.resetTrainingDatas(function () {            
+        ChartDataFactory.getTrainingDatas(function () {
             //***Highchart圖表要秀的資料***//
             var chart = $scope.chartConfig.getHighcharts();
 
@@ -1026,7 +1026,7 @@ myapp.controller('03_myapp_integrateDualAxesCtrl', function ($scope, ChartDataFa
 
     //重新refresh圖表
     refreshChart = function () {
-        ChartDataFactory.resetTrainingDatas(function () {
+        ChartDataFactory.getTrainingDatas(function () {
             //***Highchart圖表要秀的資料***//
             //取得Highchart的chart物件instance
             var chart = $scope.chartConfig.getHighcharts();
@@ -1046,7 +1046,7 @@ myapp.controller('03_myapp_integrateMultiAxesCtrl', function ($scope, ChartDataF
 
     //初始化圖表的function
     init = function () {
-        ChartDataFactory.resetTrainingDatas(function () {
+        ChartDataFactory.getTrainingDatas(function () {
             //***Highchart圖表要秀的資料***//
             var chart = $scope.chartConfig.getHighcharts();
 
@@ -1197,7 +1197,7 @@ myapp.controller('03_myapp_integrateMultiAxesCtrl', function ($scope, ChartDataF
 
     //重新refresh圖表
     refreshChart = function () {
-        ChartDataFactory.resetTrainingDatas(function () {
+        ChartDataFactory.getTrainingDatas(function () {
             //***Highchart圖表要秀的資料***//
             //取得Highchart的chart物件instance
             var chart = $scope.chartConfig.getHighcharts();
@@ -1249,7 +1249,7 @@ myapp.controller('03_myapp_integrateGauageCtrl', function ($scope, ChartDataFact
     };   
 
     init = function () {
-        ChartDataFactory.resetTrainingDatas(function () {
+        ChartDataFactory.getTrainingDatas(function () {
             var gauageData = ChartDataFactory.getLatesPeriodData();
             var myScore = gauageData.MonitoringIndex;
             $scope.vm.score = myScore;
@@ -1384,7 +1384,7 @@ myapp.controller('03_myapp_integrateGauageCtrl', function ($scope, ChartDataFact
     refreshChart = function () {
         var chart = $scope.chartConfig.getHighcharts();
 
-        ChartDataFactory.resetTrainingDatas(function () {
+        ChartDataFactory.getTrainingDatas(function () {
             var gauageData = ChartDataFactory.getLatesPeriodData();
             var myScore = gauageData.MonitoringIndex;
             $scope.vm.score = myScore;

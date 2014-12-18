@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -7,6 +9,10 @@ namespace PracticalCoding.Web.Models.Dashboard
 {
     public class Chartdata
     {
+        public Chartdata()
+        {
+        }
+
         public Chartdata(string period, decimal taiex, decimal monitoringindex
             , decimal leadingindex, decimal coincidentindex, decimal laggingindex)
         {
@@ -18,6 +24,9 @@ namespace PracticalCoding.Web.Models.Dashboard
             this.LaggingIndex = laggingindex;
             this.Period_UTC = parseDateToUTC(period); //convert string to UTC millis
         }
+
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         public string Period { get; set; }
@@ -34,7 +43,7 @@ namespace PracticalCoding.Web.Models.Dashboard
 
         public decimal LaggingIndex {get;set;}
 
-        private double parseDateToUTC(string period){
+        public double parseDateToUTC(string period){
             var splits = period.Split('/');
             var year = Convert.ToInt32(splits[0]);
             var month = Convert.ToInt32(splits[1]);

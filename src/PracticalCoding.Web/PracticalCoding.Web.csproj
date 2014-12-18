@@ -39,8 +39,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\..\lib\AutoMapper.3.3.0\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4">
+      <HintPath>..\..\lib\AutoMapper.3.3.0\lib\net40\AutoMapper.Net4.dll</HintPath>
+    </Reference>
     <Reference Include="CsvHelper">
       <HintPath>..\..\lib\CsvHelper.2.8.4\lib\net40-client\CsvHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\lib\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\lib\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core">
       <HintPath>..\..\lib\Microsoft.AspNet.SignalR.Core.2.1.2\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
@@ -135,7 +147,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Scripts\angular\i18n\ngLocale\" />
   </ItemGroup>
   <ItemGroup>
@@ -171,8 +182,43 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\AuthorsController.cs" />
+    <Compile Include="Controllers\BooksEagerLoadController.cs" />
+    <Compile Include="Controllers\BooksController.cs" />
+    <Compile Include="Controllers\CirRefBooksController.cs" />
+    <Compile Include="Controllers\CirRefBooksLINQController.cs" />
+    <Compile Include="Controllers\CirRefBooksNGController.cs" />
+    <Compile Include="Controllers\LazyBooksController.cs" />
+    <Compile Include="Controllers\EF6DashboardController.cs" />
     <Compile Include="Controllers\SignalRDashboardController.cs" />
+    <Compile Include="Migrations\201412170304131_Initial.cs" />
+    <Compile Include="Migrations\201412170304131_Initial.Designer.cs">
+      <DependentUpon>201412170304131_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412170339362_AddLazyAuthorBook.cs" />
+    <Compile Include="Migrations\201412170339362_AddLazyAuthorBook.Designer.cs">
+      <DependentUpon>201412170339362_AddLazyAuthorBook.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412170434255_AddCirRefAuthorBook.cs" />
+    <Compile Include="Migrations\201412170434255_AddCirRefAuthorBook.Designer.cs">
+      <DependentUpon>201412170434255_AddCirRefAuthorBook.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412170538218_AddChartdata.cs" />
+    <Compile Include="Migrations\201412170538218_AddChartdata.Designer.cs">
+      <DependentUpon>201412170538218_AddChartdata.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\CodeFirst\CirRefAuthor.cs" />
+    <Compile Include="Models\CodeFirst\CirRefBook.cs" />
+    <Compile Include="Models\CodeFirst\LazyAuthor.cs" />
+    <Compile Include="Models\CodeFirst\Author.cs" />
+    <Compile Include="Models\CodeFirst\LazyBook.cs" />
+    <Compile Include="Models\CodeFirst\Book.cs" />
+    <Compile Include="Models\CodeFirst\BookDetailDTO.cs" />
+    <Compile Include="Models\CodeFirst\BookDTO.cs" />
+    <Compile Include="Models\EF6DbContext.cs" />
     <Compile Include="Models\SignalRHub\SignalREvent.cs" />
+    <Compile Include="Repository\Dashboard\Impl\EF6\EF6DashboardRepo.cs" />
     <Compile Include="SignalRHubs\EventBusHub.cs" />
     <Compile Include="SignalRHubs\ChatHub2.cs" />
     <Compile Include="SignalRHubs\ChatHub.cs" />
@@ -190,6 +236,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\PracticalCoding.mdf" />
+    <Content Include="App_Data\PracticalCoding_log.ldf">
+      <DependentUpon>PracticalCoding.mdf</DependentUpon>
+    </Content>
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap-flatly.css" />
     <Content Include="Content\bootstrap-sandstone.css" />
@@ -220,6 +270,19 @@
     <Content Include="MyApp\03_ModuleRouteFactory\step_10_factorytogetcustomer.html" />
     <Content Include="MyApp\03_ModuleRouteFactory\step_09_addcustomer.html" />
     <Content Include="MyApp\03_ModuleRouteFactory\step_08_defineroutes.html" />
+    <Content Include="MyApp\09_IntegrationWithEF6\app.css" />
+    <Content Include="MyApp\09_IntegrationWithEF6\app.js" />
+    <Content Include="MyApp\09_IntegrationWithEF6\controllers.js" />
+    <Content Include="MyApp\09_IntegrationWithEF6\factories.js" />
+    <Content Include="MyApp\09_IntegrationWithEF6\index.html" />
+    <Content Include="MyApp\09_IntegrationWithEF6\Partials\00_home.html" />
+    <Content Include="MyApp\09_IntegrationWithEF6\Partials\01_basicchart-a-main.html" />
+    <Content Include="MyApp\09_IntegrationWithEF6\Partials\01_basicchart-c-chart.html" />
+    <Content Include="MyApp\09_IntegrationWithEF6\Partials\02_chartinteraction.html" />
+    <Content Include="MyApp\09_IntegrationWithEF6\Partials\03_chartintegrate-a-main.html" />
+    <Content Include="MyApp\09_IntegrationWithEF6\Partials\03_chartintegrate-c-chart.html" />
+    <Content Include="MyApp\09_IntegrationWithEF6\Partials\03_chartintegrate-c-datatable.html" />
+    <Content Include="MyApp\09_IntegrationWithEF6\Partials\03_chartintegrate-c-gauage.html" />
     <Content Include="MyApp\08_AngularWithSignalR\app.css" />
     <Content Include="MyApp\08_AngularWithSignalR\app.js" />
     <Content Include="MyApp\08_AngularWithSignalR\controllers.js" />
@@ -2763,13 +2826,26 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201412170304131_Initial.resx">
+      <DependentUpon>201412170304131_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412170339362_AddLazyAuthorBook.resx">
+      <DependentUpon>201412170339362_AddLazyAuthorBook.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412170434255_AddCirRefAuthorBook.resx">
+      <DependentUpon>201412170434255_AddCirRefAuthorBook.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412170538218_AddChartdata.resx">
+      <DependentUpon>201412170538218_AddChartdata.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -2799,6 +2875,7 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="..\..\lib\AutoMapper.3.3.0\tools\AutoMapper.targets" Condition="Exists('..\..\lib\AutoMapper.3.3.0\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

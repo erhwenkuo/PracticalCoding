@@ -62,11 +62,17 @@ D:\Personal\Tutorials\PracticalCoding\src\PracticalCoding.Web\bin\Antlr3.Runtime
 D:\Personal\Tutorials\PracticalCoding\src\PracticalCoding.Web\obj\Debug\PracticalCoding.Web.csprojResolveAssemblyReference.cache
 D:\Personal\Tutorials\PracticalCoding\src\PracticalCoding.Web\obj\Debug\PracticalCoding.Web.dll
 D:\Personal\Tutorials\PracticalCoding\src\PracticalCoding.Web\obj\Debug\PracticalCoding.Web.pdb
+D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\obj\Debug\PracticalCoding.Web.Migrations.Initial.resources
+D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\obj\Debug\PracticalCoding.Web.csproj.GenerateResource.Cache
+D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\bin\AutoMapper.Net4.dll
 D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\bin\PracticalCoding.Web.dll.config
 D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\bin\PracticalCoding.Web.dll
 D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\bin\PracticalCoding.Web.pdb
 D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\bin\Antlr3.Runtime.dll
+D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\bin\AutoMapper.dll
 D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\bin\CsvHelper.dll
+D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\bin\EntityFramework.dll
+D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\bin\EntityFramework.SqlServer.dll
 D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\bin\Microsoft.AspNet.SignalR.Core.dll
 D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
 D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\bin\Microsoft.Owin.dll
@@ -86,8 +92,11 @@ D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\bi
 D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\bin\System.Web.WebPages.dll
 D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\bin\System.Web.WebPages.Razor.dll
 D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\bin\WebGrease.dll
+D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\bin\AutoMapper.xml
 D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\bin\CsvHelper.pdb
 D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\bin\CsvHelper.xml
+D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\bin\EntityFramework.xml
+D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\bin\EntityFramework.SqlServer.xml
 D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\bin\Microsoft.AspNet.SignalR.Core.xml
 D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
 D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\bin\Microsoft.Owin.xml
@@ -107,4 +116,7 @@ D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\bi
 D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\bin\Antlr3.Runtime.pdb
 D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\obj\Debug\PracticalCoding.Web.dll
 D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\obj\Debug\PracticalCoding.Web.pdb
+D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\obj\Debug\PracticalCoding.Web.Migrations.AddLazyAuthorBook.resources
+D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\obj\Debug\PracticalCoding.Web.Migrations.AddCirRefAuthorBook.resources
+D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\obj\Debug\PracticalCoding.Web.Migrations.AddChartdata.resources
 D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\obj\Debug\PracticalCoding.Web.csprojResolveAssemblyReference.cache

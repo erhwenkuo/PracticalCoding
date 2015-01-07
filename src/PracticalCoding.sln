@@ -5,6 +5,12 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PracticalCoding.Web", "PracticalCoding.Web\PracticalCoding.Web.csproj", "{0C97BFC1-ECD6-4A36-B834-6AF8D407AD0B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{66B54272-A423-4ADE-A433-7AE7888D21B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Session_05_UnitTest", "Session_05_UnitTest\Session_05_UnitTest.csproj", "{39C2BA95-FAD0-4CFC-BBE5-E89CDB4CF2D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Session_06_DataloadToElasticsearch", "Session_06_DataloadToElasticsearch\Session_06_DataloadToElasticsearch.csproj", "{1615D3E0-D1E7-479A-841D-4A0EB3BBAFDC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,8 +21,20 @@ Global
 		{0C97BFC1-ECD6-4A36-B834-6AF8D407AD0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C97BFC1-ECD6-4A36-B834-6AF8D407AD0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C97BFC1-ECD6-4A36-B834-6AF8D407AD0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39C2BA95-FAD0-4CFC-BBE5-E89CDB4CF2D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39C2BA95-FAD0-4CFC-BBE5-E89CDB4CF2D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39C2BA95-FAD0-4CFC-BBE5-E89CDB4CF2D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39C2BA95-FAD0-4CFC-BBE5-E89CDB4CF2D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1615D3E0-D1E7-479A-841D-4A0EB3BBAFDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1615D3E0-D1E7-479A-841D-4A0EB3BBAFDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1615D3E0-D1E7-479A-841D-4A0EB3BBAFDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1615D3E0-D1E7-479A-841D-4A0EB3BBAFDC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{39C2BA95-FAD0-4CFC-BBE5-E89CDB4CF2D8} = {66B54272-A423-4ADE-A433-7AE7888D21B7}
+		{1615D3E0-D1E7-479A-841D-4A0EB3BBAFDC} = {66B54272-A423-4ADE-A433-7AE7888D21B7}
 	EndGlobalSection
 EndGlobal

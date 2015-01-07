@@ -1,0 +1,14 @@
+D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\Session_06_DataloadToElasticsearch\bin\Debug\Session_06_DataloadToElasticsearch.exe.config
+D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\Session_06_DataloadToElasticsearch\bin\Debug\Session_06_DataloadToElasticsearch.exe
+D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\Session_06_DataloadToElasticsearch\bin\Debug\Session_06_DataloadToElasticsearch.pdb
+D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\Session_06_DataloadToElasticsearch\bin\Debug\Elasticsearch.Net.dll
+D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\Session_06_DataloadToElasticsearch\bin\Debug\Nest.dll
+D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\Session_06_DataloadToElasticsearch\bin\Debug\Newtonsoft.Json.dll
+D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\Session_06_DataloadToElasticsearch\bin\Debug\Elasticsearch.Net.pdb
+D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\Session_06_DataloadToElasticsearch\bin\Debug\Elasticsearch.Net.xml
+D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\Session_06_DataloadToElasticsearch\bin\Debug\Nest.pdb
+D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\Session_06_DataloadToElasticsearch\bin\Debug\Nest.xml
+D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\Session_06_DataloadToElasticsearch\bin\Debug\Newtonsoft.Json.xml
+D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\Session_06_DataloadToElasticsearch\obj\Debug\Session_06_DataloadToElasticsearch.csprojResolveAssemblyReference.cache
+D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\Session_06_DataloadToElasticsearch\obj\Debug\Session_06_DataloadToElasticsearch.exe
+D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\Session_06_DataloadToElasticsearch\obj\Debug\Session_06_DataloadToElasticsearch.pdb

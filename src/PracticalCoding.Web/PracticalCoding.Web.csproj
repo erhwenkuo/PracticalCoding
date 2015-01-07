@@ -48,11 +48,17 @@
     <Reference Include="CsvHelper">
       <HintPath>..\..\lib\CsvHelper.2.8.4\lib\net40-client\CsvHelper.dll</HintPath>
     </Reference>
+    <Reference Include="Elasticsearch.Net">
+      <HintPath>..\..\lib\Elasticsearch.Net.1.3.1\lib\Elasticsearch.Net.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\..\lib\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\..\lib\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Jil">
+      <HintPath>..\..\lib\Jil.2.5.2\lib\net45\Jil.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core">
       <HintPath>..\..\lib\Microsoft.AspNet.SignalR.Core.2.1.2\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
@@ -72,8 +78,29 @@
     <Reference Include="Microsoft.Owin.Security">
       <HintPath>..\..\lib\Microsoft.Owin.Security.2.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
     </Reference>
+    <Reference Include="Nest">
+      <HintPath>..\..\lib\NEST.1.3.1\lib\Nest.dll</HintPath>
+    </Reference>
+    <Reference Include="NServiceKit.Common">
+      <HintPath>..\..\lib\NServiceKit.Common.1.0.11\lib\net35\NServiceKit.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="NServiceKit.Interfaces">
+      <HintPath>..\..\lib\NServiceKit.Common.1.0.11\lib\net35\NServiceKit.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="NServiceKit.Redis">
+      <HintPath>..\..\lib\NServiceKit.Redis.1.0.7\lib\net35\NServiceKit.Redis.dll</HintPath>
+    </Reference>
+    <Reference Include="NServiceKit.Text">
+      <HintPath>..\..\lib\NServiceKit.Text.1.0.10\lib\net35\NServiceKit.Text.dll</HintPath>
+    </Reference>
     <Reference Include="Owin">
       <HintPath>..\..\lib\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Sigil">
+      <HintPath>..\..\lib\Sigil.4.3.1\lib\net45\Sigil.dll</HintPath>
+    </Reference>
+    <Reference Include="StackExchange.Redis">
+      <HintPath>..\..\lib\StackExchange.Redis.1.0.371\lib\net45\StackExchange.Redis.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -188,6 +215,9 @@
     <Compile Include="Controllers\CirRefBooksController.cs" />
     <Compile Include="Controllers\CirRefBooksLINQController.cs" />
     <Compile Include="Controllers\CirRefBooksNGController.cs" />
+    <Compile Include="Controllers\ElasticsearchDashboardController.cs" />
+    <Compile Include="Controllers\RedisDashboardController.cs" />
+    <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\LazyBooksController.cs" />
     <Compile Include="Controllers\EF6DashboardController.cs" />
     <Compile Include="Controllers\SignalRDashboardController.cs" />
@@ -207,7 +237,12 @@
     <Compile Include="Migrations\201412170538218_AddChartdata.Designer.cs">
       <DependentUpon>201412170538218_AddChartdata.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201412220340462_AddEmployee.cs" />
+    <Compile Include="Migrations\201412220340462_AddEmployee.Designer.cs">
+      <DependentUpon>201412220340462_AddEmployee.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\CacheModel\Employee.cs" />
     <Compile Include="Models\CodeFirst\CirRefAuthor.cs" />
     <Compile Include="Models\CodeFirst\CirRefBook.cs" />
     <Compile Include="Models\CodeFirst\LazyAuthor.cs" />
@@ -219,6 +254,8 @@
     <Compile Include="Models\EF6DbContext.cs" />
     <Compile Include="Models\SignalRHub\SignalREvent.cs" />
     <Compile Include="Repository\Dashboard\Impl\EF6\EF6DashboardRepo.cs" />
+    <Compile Include="Repository\Dashboard\Impl\Elasticsearch\ElasticsearchDashboardRepo.cs" />
+    <Compile Include="Repository\Dashboard\Impl\Redis\RedisDashboardRepo.cs" />
     <Compile Include="SignalRHubs\EventBusHub.cs" />
     <Compile Include="SignalRHubs\ChatHub2.cs" />
     <Compile Include="SignalRHubs\ChatHub.cs" />
@@ -234,6 +271,9 @@
     <Compile Include="Repository\Dashboard\Impl\Memory\MemDashboardRepo.cs" />
     <Compile Include="Repository\Dashboard\Impl\Memory\MemDashboardRepoUtil.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utils\Cache\RedisConnHelper.cs" />
+    <Compile Include="Utils\Cache\RedisExtentions.cs" />
+    <Compile Include="Utils\Search\ElasticsearchConnHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\PracticalCoding.mdf" />
@@ -270,6 +310,37 @@
     <Content Include="MyApp\03_ModuleRouteFactory\step_10_factorytogetcustomer.html" />
     <Content Include="MyApp\03_ModuleRouteFactory\step_09_addcustomer.html" />
     <Content Include="MyApp\03_ModuleRouteFactory\step_08_defineroutes.html" />
+    <Content Include="MyApp\12_IntegrationWithElasticsearch\app.css" />
+    <Content Include="MyApp\12_IntegrationWithElasticsearch\app.js" />
+    <Content Include="MyApp\12_IntegrationWithElasticsearch\controllers.js" />
+    <Content Include="MyApp\12_IntegrationWithElasticsearch\factories.js" />
+    <Content Include="MyApp\12_IntegrationWithElasticsearch\index.html" />
+    <Content Include="MyApp\12_IntegrationWithElasticsearch\Partials\00_home.html" />
+    <Content Include="MyApp\12_IntegrationWithElasticsearch\Partials\01_basicchart-a-main.html" />
+    <Content Include="MyApp\12_IntegrationWithElasticsearch\Partials\01_basicchart-c-chart.html" />
+    <Content Include="MyApp\12_IntegrationWithElasticsearch\Partials\02_chartinteraction.html" />
+    <Content Include="MyApp\12_IntegrationWithElasticsearch\Partials\03_chartintegrate-a-main.html" />
+    <Content Include="MyApp\12_IntegrationWithElasticsearch\Partials\03_chartintegrate-c-chart.html" />
+    <Content Include="MyApp\12_IntegrationWithElasticsearch\Partials\03_chartintegrate-c-datatable.html" />
+    <Content Include="MyApp\12_IntegrationWithElasticsearch\Partials\03_chartintegrate-c-gauage.html" />
+    <Content Include="MyApp\11_AngularWithElasticsearch\app.js" />
+    <Content Include="MyApp\11_AngularWithElasticsearch\controllers.js" />
+    <Content Include="MyApp\11_AngularWithElasticsearch\factories.js" />
+    <Content Include="MyApp\11_AngularWithElasticsearch\index.html" />
+    <Content Include="MyApp\11_AngularWithElasticsearch\Partials\fulltext-search.html" />
+    <Content Include="MyApp\10_IntegrationWithRedis\app.css" />
+    <Content Include="MyApp\10_IntegrationWithRedis\app.js" />
+    <Content Include="MyApp\10_IntegrationWithRedis\controllers.js" />
+    <Content Include="MyApp\10_IntegrationWithRedis\factories.js" />
+    <Content Include="MyApp\10_IntegrationWithRedis\index.html" />
+    <Content Include="MyApp\10_IntegrationWithRedis\Partials\00_home.html" />
+    <Content Include="MyApp\10_IntegrationWithRedis\Partials\01_basicchart-a-main.html" />
+    <Content Include="MyApp\10_IntegrationWithRedis\Partials\01_basicchart-c-chart.html" />
+    <Content Include="MyApp\10_IntegrationWithRedis\Partials\02_chartinteraction.html" />
+    <Content Include="MyApp\10_IntegrationWithRedis\Partials\03_chartintegrate-a-main.html" />
+    <Content Include="MyApp\10_IntegrationWithRedis\Partials\03_chartintegrate-c-chart.html" />
+    <Content Include="MyApp\10_IntegrationWithRedis\Partials\03_chartintegrate-c-datatable.html" />
+    <Content Include="MyApp\10_IntegrationWithRedis\Partials\03_chartintegrate-c-gauage.html" />
     <Content Include="MyApp\09_IntegrationWithEF6\app.css" />
     <Content Include="MyApp\09_IntegrationWithEF6\app.js" />
     <Content Include="MyApp\09_IntegrationWithEF6\controllers.js" />
@@ -2769,6 +2840,12 @@
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="chartdata.csv" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\elasticsearch\elasticsearch.angular.js" />
+    <Content Include="Scripts\elasticsearch\elasticsearch.angular.min.js" />
+    <Content Include="Scripts\elasticsearch\elasticsearch.jquery.js" />
+    <Content Include="Scripts\elasticsearch\elasticsearch.jquery.min.js" />
+    <Content Include="Scripts\elasticsearch\elasticsearch.js" />
+    <Content Include="Scripts\elasticsearch\elasticsearch.min.js" />
     <Content Include="Scripts\highcharts\adapters\standalone-framework.js" />
     <Content Include="Scripts\highcharts\adapters\standalone-framework.src.js" />
     <Content Include="Scripts\highcharts\highcharts-3d.js" />
@@ -2809,7 +2886,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -2846,6 +2925,12 @@
     <EmbeddedResource Include="Migrations\201412170538218_AddChartdata.resx">
       <DependentUpon>201412170538218_AddChartdata.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412220340462_AddEmployee.resx">
+      <DependentUpon>201412220340462_AddEmployee.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>AngularJs with Elasticsearch</title>
+    <!-- CSS (load bootstrap) -->
+    <link href="../../Content/bootstrap.css" rel="stylesheet" />
+    <link href="../../Content/font-awesome.css" rel="stylesheet" />
+
+    <!-- JS (load angular, ui-router, and our custom js file) -->
+    <script src="../../Scripts/angular/angular.js"></script>
+    <script src="../../Scripts/angular/angular-ui-router.js"></script>
+    <script src="../../Scripts/angular/angular-sanitize.js"></script>
+    <script src="../../Scripts/angular/ui-bootstrap-tpls-0.12.0.js"></script>
+
+    <!-- JS (load elasticsearch js file) -->
+    <script src="../../Scripts/elasticsearch/elasticsearch.angular.js"></script>
+
+    <script src="app.js"></script>
+    <script src="factories.js"></script>
+    <script src="controllers.js"></script>
+</head>
+<!-- apply our angular app to our SPA -->
+<body ng-app="myapp">
+    <!-- NAVIGATION -->
+    <nav class="navbar navbar-inverse" role="navigation">
+        <div class="navbar-header">
+            <a class="navbar-brand" ui-sref="#">Practical Coding</a>
+        </div>
+        <div class="navbar-collapse navbar-inverse-collapse collapse" aria-expanded="false" style="height: 1px;">
+            <ul class="nav navbar-nav">
+                <li><a ui-sref="fulltext_search"><i class="fa fa-search"></i>Search</a></li>
+            </ul>
+        </div>
+    </nav>
+    <!-- MAIN CONTENT -->
+    <div class="container">
+        <!-- THIS IS WHERE WE WILL INJECT OUR CONTENT -->
+        <div ui-view></div>
+    </div>
+</body>
+</html>

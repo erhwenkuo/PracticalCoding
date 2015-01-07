@@ -1,0 +1,52 @@
+﻿<!--Partials/02_chartinteraction.html-->
+<div class="row">
+    <div class="col-sm-8">
+
+        <highchart id="chart1" config="chartConfig"></highchart>
+
+        <div class="row text-center">
+            <button class="btn btn-sm btn-primary" ng-click="addSeries()"><i class="fa fa-database"></i> Add Series</button>
+            <button class="btn btn-sm btn-success" ng-click="addPoints()"><i class="fa fa-line-chart"></i> Add Points</button>
+            <button class="btn btn-sm btn-danger" ng-click="removeRandomSeries()"><i class="fa fa-trash-o"></i> Remove Series</button>
+        </div>
+    </div>
+
+    <div class="col-sm-4">  
+
+        <div>Title: <a href="#" editable-text="chartConfig.title.text">{{chartConfig.title.text || "empty" }}</a></div>
+        <div>Subtitle: <a href="#" editable-text="chartConfig.subtitle.text">{{chartConfig.subtitle.text || "empty"}}</a></div>
+        <div>
+            Default chart type:
+            <a href="#" editable-select="chartConfig.options.chart.type" e-ng-options="t.id as t.title for t in chartTypes">
+                {{chartConfig.options.chart.type || "default"}}
+            </a>
+        </div>
+        <div>Is loading? <a href="#" editable-checkbox="chartConfig.loading">{{chartConfig.loading}}</a></div>
+        <div>Show credit? <a href="#" editable-checkbox="chartConfig.credits.enabled">{{chartConfig.credits.enabled}}</a></div>
+        <h4>Series</h4>
+        <div ng-repeat="series in chartSeries">
+            <div class="col-sm-12 well">
+                <div>Name: <a href="#" editable-text="series.name">{{ series.name || "empty" }}</a></div>
+                <div>
+                    ChartType:
+                    <a href="#" editable-select="series.type" e-ng-options="t.id as t.title for t in chartTypes">
+                        {{series.type || "default"}}
+                    </a>
+                </div>
+                <div>Color: <a href="#" editable-text="series.color">{{ series.color || "default" }}</a></div>
+                <div>LineWidth: <a href="#" editable-text="series.lineWidth">{{ series.lineWidth || 'default' }}</a></div>
+                <div>
+                    DashStyle:
+                    <a href="#" editable-select="series.dashStyle" e-ng-options="ds.id as ds.title for ds in dashStyles">
+                        {{series.dashStyle || "default"}}
+                    </a>
+                </div>
+                <div>
+                    <button class="btn btn-sm btn-danger" ng-click="removeSeries($index)">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete                    
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

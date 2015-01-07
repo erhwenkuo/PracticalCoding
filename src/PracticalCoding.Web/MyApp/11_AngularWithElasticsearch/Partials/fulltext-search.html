@@ -1,0 +1,45 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <form ng-submit="search()" role="form">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search" ng-model="queryString">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-primary" ng-click="search()"><i class="fa fa-search"></i></button>
+                    </span>
+                </div><!-- /input-group -->
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <h4>Search Results</h4>
+    <strong class="text-danger">{{totalItems}}</strong> results were found in <strong class="text-danger">{{timeTook}}</strong> ms
+</div>
+
+<!-- Angularjs Bootstrap分頁元件的設定 -->
+<pagination ng-show="totalItems>0" total-items="totalItems" ng-model="currentPage" max-size="5" items-per-page="maxSize" 
+            class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" ng-change="pageChanged()">
+</pagination>
+
+<div class="container" ng-repeat="item in hits">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>{{item['_source']['title']}}</h4>
+        </div>
+        <div class="panel-body">
+            <p ng-bind-html="item._source.body"></p>
+
+            <span ng-repeat="tag in item._source.tags">
+                <span class="label label-success">
+                    <i class="fa fa-tag"></i>
+                    {{tag}}
+                </span>
+                &nbsp;
+            </span>
+        </div>
+    </div>
+</div>
+
+

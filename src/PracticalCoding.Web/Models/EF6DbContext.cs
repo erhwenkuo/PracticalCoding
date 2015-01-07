@@ -1,4 +1,5 @@
-﻿using PracticalCoding.Web.Models.CodeFirst;
+﻿using PracticalCoding.Web.Models.CacheModel;
+using PracticalCoding.Web.Models.CodeFirst;
 using PracticalCoding.Web.Models.Dashboard;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace PracticalCoding.Web.Models
             this.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
         }
 
-        #region Omit for breavity
+        #region Entities for Session_04
 
         public DbSet<Author> Authors { get; set; }
 
@@ -31,9 +32,16 @@ namespace PracticalCoding.Web.Models
 
         public DbSet<CirRefBook> CirRefBooks { get; set; }
 
-        #endregion
+        #endregion Entities for Session_04
+
+        #region Entities for Session_05
+        public DbSet<Employee> Employees { get; set; }
+
+        #endregion Entities for Session_05
 
         public DbSet<Chartdata> Chartdatas { get; set; }
+
+
     }
 }
 

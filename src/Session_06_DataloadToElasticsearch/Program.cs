@@ -21,7 +21,6 @@ namespace Session_06_DataloadToElasticsearch
 
             //設定要import到Elasticsearch的資料檔
             string xmlDataFile = @"D:\temp\datadump\apple\Posts.xml";
-            //string xmlDataFile = @"D:\temp\datadump\apple\Posts.xml";
 
             XmlReader xmlReader = XmlReader.Create(xmlDataFile);
             int rowCount = 0;

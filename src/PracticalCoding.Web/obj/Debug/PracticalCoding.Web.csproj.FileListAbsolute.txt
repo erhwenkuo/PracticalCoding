@@ -137,10 +137,10 @@ D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\bi
 D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\bin\NServiceKit.Interfaces.xml
 D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\bin\NServiceKit.Redis.xml
 D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\bin\NServiceKit.Text.xml
-D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\obj\Debug\PracticalCoding.Web.csprojResolveAssemblyReference.cache
 D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\bin\Elasticsearch.Net.dll
 D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\bin\Nest.dll
 D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\bin\Elasticsearch.Net.pdb
 D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\bin\Elasticsearch.Net.xml
 D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\bin\Nest.pdb
 D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\bin\Nest.xml
+D:\Personal\Tutorials\PracticalCoding\PracticalCoding\src\PracticalCoding.Web\obj\Debug\PracticalCoding.Web.csprojResolveAssemblyReference.cache

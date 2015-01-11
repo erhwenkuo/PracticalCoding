@@ -15,6 +15,9 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web;
+using System.IO;
+using CsvHelper;
 
 namespace PracticalCoding.Web.Controllers
 {
@@ -32,8 +35,18 @@ namespace PracticalCoding.Web.Controllers
 
         public RedisDashboardController()
         {
-            _redisClient = new RedisClient("localhost");
-            _repo = new RedisDashboardRepo(_redisClient);
+            try
+            {
+                _redisClient = new RedisClient("localhost");
+                _redisClient.ContainsKey("test");
+
+                _repo = new RedisDashboardRepo(_redisClient);
+                InitialCheck(_repo);
+            }
+            catch (Exception)
+            {
+                throw new HttpUnhandledException("Could not connect to Redis server Ip:[localhost:6379]");
+            }
         }
 
         protected IHubContext Hub
@@ -126,6 +139,41 @@ namespace PracticalCoding.Web.Controllers
                 _redisClient.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private void InitialCheck(IDashboardRepo dashboardRepo)
+        {
+            if (dashboardRepo.GetAllChartdatas().Count == 0)
+            {
+                //還沒有初始過資料, 用Server上的資料來初始化
+                InitChartdatas(dashboardRepo);
+            }
+
+        }
+
+        private void InitChartdatas(IDashboardRepo dashboardRepo)
+        {                           
+            var chartdataFilePath = HttpContext.Current.Server.MapPath("~/chartdata.csv");
+            using (var reader = File.OpenText(chartdataFilePath))
+            {
+                var csv = new CsvReader(reader);
+
+                while (csv.Read())
+                {
+                    //Period,TAIEX,MonitoringIndex,LeadingIndex,CoincidentIndex,LaggingIndex
+                    var period = csv.GetField<string>("Period");
+                    var taiex = csv.GetField<decimal>("TAIEX");
+                    var monitoringindex = csv.GetField<decimal>("MonitoringIndex");
+                    var leadingindex = csv.GetField<decimal>("LeadingIndex");
+                    var coincidentindex = csv.GetField<decimal>("CoincidentIndex");
+                    var laggingindex = csv.GetField<decimal>("LaggingIndex");
+
+                    var chartdata = new Chartdata(period, taiex, monitoringindex
+                            , leadingindex, coincidentindex, laggingindex);
+
+                    dashboardRepo.CreateChartdata(chartdata);
+                }
+            } //end of using (var reader..)
         }
     }
 }

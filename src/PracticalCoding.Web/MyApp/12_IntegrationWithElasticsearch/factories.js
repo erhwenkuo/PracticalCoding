@@ -20,6 +20,9 @@ angular.module('myapp')
                     //呼叫callbackFn並把最新取得的資料當引數傳入
                     callbackFn(trainingdatas); 
                 }
+            })
+            .error(function (data, status, headers, config) {
+                alert(data.InnerException.ExceptionMessage);
             });
     };    
 
